@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChefSync - Snack Recipes</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f7f2;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Navigation */
+    .navbar {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #e67e22;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+    
+    .logo-icon {
+      margin-right: 0.5rem;
+      font-size: 1.5rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 1.5rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: #e67e22;
+    }
+    
+    .nav-links a.active {
+      color: #e67e22;
+      font-weight: 600;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('https://plus.unsplash.com/premium_photo-1687014520257-3b09f6668092?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+      height: 40vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 0 1rem;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+    }
+    
+    /* Main Content */
+    .main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    /* Category Pills */
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .category {
+      background-color: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 50px;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .category:hover {
+      background-color: #f8f8f8;
+    }
+    
+    .category.active {
+      background-color: #e67e22;
+      color: white;
+      border-color: #e67e22;
+    }
+    
+    /* Recipe Cards */
+    .recipes {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    
+    .recipe-card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .recipe-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .recipe-image {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+    
+    .recipe-content {
+      padding: 1.5rem;
+    }
+    
+    .recipe-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    
+    .recipe-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .rating {
+      color: #e67e22;
+    }
+    
+    .recipe-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .tag {
+      background-color: #f8f8f8;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+    
+    .recipe-description {
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+    
+    .recipe-button {
+      display: inline-block;
+      background-color: #e67e22;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .recipe-button:hover {
+      background-color: #d35400;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+      display: flex;
+      align-items: center;
+    }
+    
+    .section-title::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background-color: #e0e0e0;
+      margin-left: 1rem;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: #333;
+      color: #fff;
+      padding: 3rem 1rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      color: #e67e22;
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-section h3 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: #e67e22;
+    }
+    
+    .copyright {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid #444;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .recipes {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+      
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">👨‍🍳</span>
+        ChefSync
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="BREAKFAST.html">Breakfast</a></li>
+        <li><a href="LUNCH.html">Lunch</a></li>
+        <li><a href="DINNER.html">Dinner</a></li>
+        <li><a href="DESSERTS.html">Desserts</a></li>
+        <li><a href="#" class="active">Snacks</a></li>
+        <li><a href="index.html">Log in</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Snack Recipes</h1>
+    <p>Discover our tasty and quick snack ideas for any time of the day</p>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main">
+    <!-- Categories -->
+    <div class="categories">
+      <div class="category active">All</div>
+      <div class="category">Quick & Easy</div>
+      <div class="category">Healthy</div>
+      <div class="category">Vegetarian</div>
+      <div class="category">Gluten-Free</div>
+      <div class="category">Popular</div>
+    </div>
+
+    <!-- Featured Recipes -->
+    <h2 class="section-title">Featured Snack Ideas</h2>
+    <div class="recipes">
+      <!-- Recipe Card 1 -->
+      <div class="recipe-card">
+        <img src="https://images.unsplash.com/photo-1619604107617-d46fffad3ccb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cheese Nachos" class="recipe-image" />
+        <div class="recipe-content">
+          <h3 class="recipe-title">Cheese Nachos</h3>
+          <div class="recipe-info">
+            <span>15 min</span>
+            <span class="rating">★★★★☆ (4.5)</span>
+          </div>
+          <div class="recipe-tags">
+            <span class="tag">Quick & Easy</span>
+            <span class="tag">Popular</span>
+          </div>
+          <p class="recipe-description">Crispy nachos topped with melted cheese, jalapeños, and salsa.</p>
+          <a href="CHEESENACHOS.html">
+            <button class="recipe-button">View Recipe</button>
+          </a>
+          
+        </div>
+      </div>
+
+      <!-- Recipe Card 2 -->
+      <div class="recipe-card">
+        <img src="https://images.unsplash.com/photo-1598371623789-44e341c1b6ab?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Fruit & Nut Mix" class="recipe-image" />
+        <div class="recipe-content">
+          <h3 class="recipe-title">Fruit & Nut Mix</h3>
+          <div class="recipe-info">
+            <span>5 min</span>
+            <span class="rating">★★★★★ (4.9)</span>
+          </div>
+          <div class="recipe-tags">
+            <span class="tag">Healthy</span>
+            <span class="tag">Quick & Easy</span>
+          </div>
+          <p class="recipe-description">A nutritious mix of dried fruits and nuts for a quick energy boost.</p>
+          <a href="FRUITANDNUTMIX.html">
+            <button class="recipe-button">View Recipe</button>
+          </a>
+          
+        </div>
+      </div>
+
+      <!-- Recipe Card 3 -->
+      <div class="recipe-card">
+        <img src="https://plus.unsplash.com/premium_photo-1666649675516-020b8d3787c3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Veggie Sticks & Hummus" class="recipe-image" />
+        <div class="recipe-content">
+          <h3 class="recipe-title">Veggie Sticks & Hummus</h3>
+          <div class="recipe-info">
+            <span>10 min</span>
+            <span class="rating">★★★★☆ (4.3)</span>
+          </div>
+          <div class="recipe-tags">
+            <span class="tag">Vegetarian</span>
+            <span class="tag">Healthy</span>
+          </div>
+          <p class="recipe-description">Fresh veggie sticks served with creamy hummus for dipping.</p>
+          <a href="VEGGIESTICKSANDHUMMUS.html">
+            <button class="recipe-button">View Recipe</button>
+          </a>
+          
+        </div>
+      </div>
+
+      <!-- Recipe Card 4 -->
+      <div class="recipe-card">
+        <img src="https://images.unsplash.com/photo-1580822656752-1f113169c5fe?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mini Sandwiches" class="recipe-image" />
+        <div class="recipe-content">
+          <h3 class="recipe-title">Mini Sandwiches</h3>
+          <div class="recipe-info">
+            <span>20 min</span>
+            <span class="rating">★★★★☆ (4.7)</span>
+          </div>
+          <div class="recipe-tags">
+            <span class="tag">Popular</span>
+            <span class="tag">Family</span>
+          </div>
+          <p class="recipe-description">Bite-sized sandwiches with a variety of fillings.</p>
+          <a href="MINISANDWICHES.html">
+            <button class="recipe-button">View Recipe</button>
+          </a>
+          
+        </div>
+      </div>
+
+      <!-- Recipe Card 5 -->
+      <div class="recipe-card">
+        <img src="https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Popcorn" class="recipe-image" />
+        <div class="recipe-content">
+          <h3 class="recipe-title">Popcorn</h3>
+          <div class="recipe-info">
+            <span>10 min</span>
+            <span class="rating">★★★★☆ (4.6)</span>
+          </div>
+          <div class="recipe-tags">
+            <span class="tag">Quick & Easy</span>
+            <span class="tag">Gluten-Free</span>
+          </div>
+          <p class="recipe-description">Light and fluffy popcorn seasoned with your choice of flavors.</p>
+          <a href="POPCORN.html">
+            <button class="recipe-button">View Recipe</button>
+          </a>
+          
+        </div>
+      </div>
+
+      <!-- Recipe Card 6 -->
+      <div class="recipe-card">
+        <img src="https://images.unsplash.com/photo-1506280754576-f6fa8a873550?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Bruschetta" class="recipe-image" />
+        <div class="recipe-content">
+          <h3 class="recipe-title">Bruschetta</h3>
+          <div class="recipe-info">
+            <span>15 min</span>
+            <span class="rating">★★★★☆ (4.4)</span>
+          </div>
+          <div class="recipe-tags">
+            <span class="tag">Vegetarian</span>
+            <span class="tag">Quick & Easy</span>
+          </div>
+          <p class="recipe-description">Toasted bread topped with fresh tomatoes, basil, and olive oil.</p>
+          <a href="BRUSCHETTA.html">
+            <button class="recipe-button">View Recipe</button>
+          </a>
+          
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <span class="logo-icon">👨‍🍳</span>
+          ChefSync
+        </div>
+        <p>Your personal recipe assistant for delicious and easy cooking.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Categories</h3>
+        <ul class="footer-links">
+          <li><a href="#">Breakfast</a></li>
+          <li><a href="#">Lunch</a></li>
+          <li><a href="#">Dinner</a></li>
+          <li><a href="#">Desserts</a></li>
+          <li><a href="#">Beverages</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <ul class="footer-links">
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Pinterest</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 ChefSync. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Add event listeners to category pills
+    const categories = document.querySelectorAll('.category');
+    categories.forEach(category => {
+      category.addEventListener('click', () => {
+        // Remove active class from all categories
+        categories.forEach(c => c.classList.remove('active'));
+        // Add active class to clicked category
+        category.classList.add('active');
+      });
+    });
+  
+    // No need to add event listeners for recipe buttons as they are now wrapped in <a> tags
+  </script>
+  
+</body>
+
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChefSync - Dinner Recipes</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f7f2;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Navigation */
+    .navbar {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #e67e22;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+    
+    .logo-icon {
+      margin-right: 0.5rem;
+      font-size: 1.5rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 1.5rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: #e67e22;
+    }
+    
+    .nav-links a.active {
+      color: #e67e22;
+      font-weight: 600;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('https://images.unsplash.com/photo-1551218808-94e220e084d2') no-repeat center center/cover;
+      height: 40vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 0 1rem;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+    }
+    
+    /* Main Content */
+    .main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    /* Category Pills */
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .category {
+      background-color: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 50px;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .category:hover {
+      background-color: #f8f8f8;
+    }
+    
+    .category.active {
+      background-color: #e67e22;
+      color: white;
+      border-color: #e67e22;
+    }
+    
+    /* Recipe Cards */
+    .recipes {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    
+    .recipe-card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .recipe-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .recipe-image {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+    
+    .recipe-content {
+      padding: 1.5rem;
+    }
+    
+    .recipe-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    
+    .recipe-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .rating {
+      color: #e67e22;
+    }
+    
+    .recipe-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .tag {
+      background-color: #f8f8f8;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+    
+    .recipe-description {
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+    
+    .recipe-button {
+      display: inline-block;
+      background-color: #e67e22;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .recipe-button:hover {
+      background-color: #d35400;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+      display: flex;
+      align-items: center;
+    }
+    
+    .section-title::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background-color: #e0e0e0;
+      margin-left: 1rem;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: #333;
+      color: #fff;
+      padding: 3rem 1rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      color: #e67e22;
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-section h3 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: #e67e22;
+    }
+    
+    .copyright {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid #444;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .recipes {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+      
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">👨‍🍳</span>
+        ChefSync
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="BREAKFAST.html">Breakfast</a></li>
+        <li><a href="LUNCH.html">Lunch</a></li>
+        <li><a href="#" class="active">Dinner</a></li>
+        <li><a href="DESSERTS.html">Desserts</a></li>
+        <li><a href="index.html">Log in</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Dinner Recipes</h1>
+    <p>End your day with our delicious and satisfying dinner ideas</p>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main">
+    <!-- Categories -->
+    <div class="categories">
+      <div class="category active">All</div>
+      <div class="category">Quick & Easy</div>
+      <div class="category">Healthy</div>
+      <div class="category">Vegetarian</div>
+      <div class="category">Gluten-Free</div>
+      <div class="category">Popular</div>
+    </div>
+
+    <!-- Featured Recipes -->
+    <h2 class="section-title">Featured Dinner Ideas</h2>
+    <div class="recipes">
+      <!-- Recipe Card 1 -->
+      <div class="recipe-card">
+        <img src="https://plus.unsplash.com/premium_photo-1723478417559-2349252a3dda?q=80&w=1966&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Grilled Salmon" class="recipe-image" />
+        <div class="recipe-content">
+          <h3 class="recipe-title">Grilled Salmon</h3>
+          <div class="recipe-info">
+            <span>30 min</span>
+            <span class="rating">★★★★☆ (4.5)</span>
+          </div>
+          <div class="recipe-tags">
+            <span class="tag">Healthy</span>
+            <span class="tag">Protein-Rich</span>
+          </div>
+          <p class="recipe-description">Juicy grilled salmon served with a side of fresh vegetables.</p>
+          <a href="GRILLEDSALMON.html">
+            <button class="recipe-button">View Recipe</button>
+          </a>
+          
+        </div>
+      </div>
+
+      <!-- Recipe Card 2 -->
+      <div class="recipe-card">
+        <img src="https://images.unsplash.com/photo-1622973536968-3ead9e780960?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Spaghetti Bolognese" class="recipe-image" />
+        <div class="recipe-content">
+          <h3 class="recipe-title">Spaghetti Bolognese</h3>
+          <div class="recipe-info">
+            <span>45 min</span>
+            <span class="rating">★★★★★ (4.8)</span>
+          </div>
+          <div class="recipe-tags">
+            <span class="tag">Popular</span>
+            <span class="tag">Family</span>
+          </div>
+          <p class="recipe-description">Classic Italian pasta dish with rich meat sauce and parmesan cheese.</p>
+          <a href="SPAGHETTIBOLOGNESE.html">
+            <button class="recipe-button">View Recipe</button>
+          </a>
+          
+        </div>
+      </div>
+
+      <!-- Recipe Card 3 -->
+      <div class="recipe-card">
+        <img src="https://images.unsplash.com/photo-1722290680497-389e0f684e05?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Vegetable Stir Fry" class="recipe-image" />
+        <div class="recipe-content">
+          <h3 class="recipe-title">Vegetable Stir Fry</h3>
+          <div class="recipe-info">
+            <span>20 min</span>
+            <span class="rating">★★★★☆ (4.6)</span>
+          </div>
+          <div class="recipe-tags">
+            <span class="tag">Quick & Easy</span>
+            <span class="tag">Vegetarian</span>
+          </div>
+          <p class="recipe-description">Colorful vegetables stir-fried with soy sauce and sesame oil.</p>
+          <a href="VEGETABLESTIRFRY.html">
+            <button class="recipe-button">View Recipe</button>
+          </a>
+          
+        </div>
+      </div>
+
+      <!-- Add more recipe cards as needed -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <span class="logo-icon">👨‍🍳</span>
+          ChefSync
+        </div>
+        <p>Your personal recipe assistant for delicious and easy cooking.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Categories</h3>
+        <ul class="footer-links">
+          <li><a href="#">Breakfast</a></li>
+          <li><a href="#">Lunch</a></li>
+          <li><a href="#">Dinner</a></li>
+          <li><a href="#">Desserts</a></li>
+          <li><a href="#">Beverages</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <ul class="footer-links">
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Pinterest</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 ChefSync. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Add event listeners to category pills
+    const categories = document.querySelectorAll('.category');
+    categories.forEach(category => {
+      category.addEventListener('click', () => {
+        // Remove active class from all categories
+        categories.forEach(c => c.classList.remove('active'));
+        // Add active class to clicked category
+        category.classList.add('active');
+      });
+    });
+  
+    // No need to add event listeners for recipe buttons as they are now wrapped in <a> tags
+  </script>
+   
+</body>
+
+</html>

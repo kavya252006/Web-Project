@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mini Sandwiches Recipe</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f7f2;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .recipe-card {
+      max-width: 800px;
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .recipe-image {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .recipe-title {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .recipe-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      font-size: 0.95rem;
+      color: #777;
+      margin-bottom: 15px;
+    }
+
+    .recipe-tags {
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: #e0f7fa;
+      color: #00796b;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-right: 8px;
+    }
+
+    .recipe-description {
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      color: #5a2d0c;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    p strong {
+      color: #b35c00;
+    }
+
+    @media (max-width: 600px) {
+      .recipe-card {
+        padding: 15px;
+      }
+
+      .recipe-title {
+        font-size: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="recipe-card">
+    <img src="https://images.unsplash.com/photo-1580822656752-1f113169c5fe?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mini Sandwiches" class="recipe-image" />
+    <div class="recipe-content">
+      <h1 class="recipe-title">Mini Sandwiches</h1>
+      
+      <div class="recipe-info">
+        <span>Prep: 10 min</span>
+        <span>Cook: 10 min</span>
+        <span>Rating: ★★★★☆ (4.6)</span>
+      </div>
+
+      <div class="recipe-tags">
+        <span class="tag">Quick</span>
+        <span class="tag">Easy</span>
+      </div>
+
+      <p class="recipe-description">
+        Delicious mini sandwiches perfect for a quick snack or party appetizer.
+      </p>
+
+      <h2>📝 Ingredients:</h2>
+      <ul>
+        <li>12 mini rolls</li>
+        <li>6 slices of cheese</li>
+        <li>6 slices of ham or turkey</li>
+        <li>1/4 cup mayonnaise</li>
+        <li>1/4 cup mustard</li>
+        <li>Lettuce leaves</li>
+        <li>Tomato slices</li>
+      </ul>
+
+      <h2>👨‍🍳 Instructions:</h2>
+      <ol>
+        <li>Slice the mini rolls in half and spread mayonnaise and mustard on each side.</li>
+        <li>Layer cheese, ham or turkey, lettuce, and tomato on the bottom half of each roll.</li>
+        <li>Top with the other half of the roll to form a sandwich.</li>
+        <li>Serve immediately or refrigerate until ready to serve.</li>
+      </ol>
+
+      <p><strong>Tip:</strong> Add pickles or olives for extra flavor!</p>
+    </div>
+  </div>
+
+</body>
+</html>

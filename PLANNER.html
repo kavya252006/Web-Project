@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        main {
+            padding: 30px;
+        }
+
+        #meal-planner {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 12px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remove-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .remove-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Meal Planner
+    </header>
+    <main>
+        <section id="meal-planner">
+            <h2>Plan Your Meals</h2>
+            <form id="meal-form">
+                <label for="meal" hidden>Meal:</label>
+                <input type="text" id="meal" name="meal" placeholder="Enter meal name" required>
+                <button type="submit">Add Meal</button>
+            </form>
+            <ul id="meal-list"></ul>
+        </section>
+    </main>
+    <script>
+        document.getElementById('meal-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const mealInput = document.getElementById('meal');
+            const meal = mealInput.value.trim();
+            
+            if (meal) {
+                const mealList = document.getElementById('meal-list');
+                const listItem = document.createElement('li');
+                listItem.textContent = meal;
+                
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.className = 'remove-btn';
+                removeButton.onclick = function() {
+                    mealList.removeChild(listItem);
+                };
+                
+                listItem.appendChild(removeButton);
+                mealList.appendChild(listItem);
+                
+                mealInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>

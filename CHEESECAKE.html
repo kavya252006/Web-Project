@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cheesecake Recipe</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f7f2;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .recipe-card {
+      max-width: 800px;
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .recipe-image {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .recipe-title {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .recipe-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      font-size: 0.95rem;
+      color: #777;
+      margin-bottom: 15px;
+    }
+
+    .recipe-tags {
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: #e0f7fa;
+      color: #00796b;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-right: 8px;
+    }
+
+    .recipe-description {
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      color: #5a2d0c;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    p strong {
+      color: #b35c00;
+    }
+
+    @media (max-width: 600px) {
+      .recipe-card {
+        padding: 15px;
+      }
+
+      .recipe-title {
+        font-size: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="recipe-card">
+    <img src="https://images.unsplash.com/photo-1642588362129-03eeb0ba63e2?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cheesecake" class="recipe-image" />
+    <div class="recipe-content">
+      <h1 class="recipe-title">Cheesecake</h1>
+      
+      <div class="recipe-info">
+        <span>Prep: 20 min</span>
+        <span>Cook: 1 hr</span>
+        <span>Rating: ★★★★★ (4.9)</span>
+      </div>
+
+      <div class="recipe-tags">
+        <span class="tag">Creamy</span>
+        <span class="tag">Rich</span>
+      </div>
+
+      <p class="recipe-description">
+        Creamy cheesecake with a buttery graham cracker crust and a hint of vanilla.
+      </p>
+
+      <h2>📝 Ingredients:</h2>
+      <ul>
+        <li>1 1/2 cups graham cracker crumbs</li>
+        <li>1/4 cup sugar</li>
+        <li>1/2 cup unsalted butter, melted</li>
+        <li>4 (8 oz) packages cream cheese, softened</li>
+        <li>1 1/4 cups sugar</li>
+        <li>1 teaspoon vanilla extract</li>
+        <li>4 large eggs</li>
+      </ul>
+
+      <h2>👨‍🍳 Instructions:</h2>
+      <ol>
+        <li>Preheat the oven to 325°F (163°C). Grease a 9-inch springform pan.</li>
+        <li>Mix graham cracker crumbs, 1/4 cup sugar, and melted butter in a bowl. Press into the bottom of the prepared pan.</li>
+        <li>In a large bowl, beat cream cheese, 1 1/4 cups sugar, and vanilla until smooth.</li>
+        <li>Add eggs one at a time, mixing on low speed until just blended.</li>
+        <li>Pour the filling over the crust.</li>
+        <li>Bake for 55-60 minutes or until the center is set. Cool completely before removing from the pan.</li>
+        <li>Refrigerate for at least 4 hours before serving.</li>
+      </ol>
+
+      <p><strong>Tip:</strong> Top with fresh berries or a fruit compote for added flavor!</p>
+    </div>
+  </div>
+
+</body>
+</html>

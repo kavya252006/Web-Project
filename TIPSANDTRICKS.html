@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tips & Tricks - ChefSync</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <style>
+    :root {
+      --primary: #e67e22;
+      --primary-dark: #d35400;
+      --secondary: #fff3e0;
+      --text-dark: #333;
+      --text-light: #666;
+      --white: #fff;
+      --bg-light: #fffaf4;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    
+    .navbar-logo span {
+      color: var(--text-dark);
+    }
+
+    .hero {
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092') no-repeat center center/cover;
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, transparent 0%, rgba(0,0,0,0.3) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 0 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin: 0;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      opacity: 0.9;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tips-container {
+      max-width: 1200px;
+      margin: -4rem auto 3rem;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--primary);
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .tip {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .tip:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .tip-header {
+      background-color: var(--primary);
+      padding: 1.5rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .tip-icon {
+      font-size: 1.8rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255,255,255,0.2);
+      border-radius: 50%;
+    }
+
+    .tip-title {
+      font-size: 1.4rem;
+      margin: 0;
+      font-weight: 600;
+      flex-grow: 1;
+    }
+
+    .tip-body {
+      padding: 1.5rem;
+    }
+
+    .tip-content {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.6;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .tip-content.show {
+      max-height: 1000px;
+    }
+
+    .tip-content p {
+      margin-bottom: 1rem;
+    }
+
+    .tip-content ul, .tip-content ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tip-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .show-more {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.7rem 0;
+      color: var(--primary);
+      font-weight: 600;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-top: 1px solid #eee;
+      margin-top: 1rem;
+    }
+
+    .show-more:hover {
+      background-color: #f0f0f0;
+      color: var(--primary-dark);
+    }
+
+    .show-more i {
+      margin-left: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .show-more.expanded i {
+      transform: rotate(180deg);
+    }
+
+    .difficulty-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: white;
+    }
+
+    .beginner {
+      background-color: #4CAF50;
+    }
+
+    .intermediate {
+      background-color: #FFC107;
+    }
+
+    .advanced {
+      background-color: #F44336;
+    }
+
+    .footer {
+      background-color: #2d3436;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 4rem 0 2rem;
+      margin-top: 4rem;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .footer-col h3 {
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      position: relative;
+    }
+    
+    .footer-col h3::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary);
+    }
+    
+    .footer-about p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary);
+      padding-left: 5px;
+    }
+    
+    .footer-copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      padding: 2rem 2rem 0;
+    }
+    
+    .footer-copyright a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    /* Animated knife when page loads */
+    .knife-animation {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      z-index: 9999;
+      animation: fadeOut 2s ease forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      70% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(720deg);
+      }
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .tips-container {
+        margin-top: -2rem;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Loading animation -->
+  <div class="knife-animation">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100" fill="#e67e22">
+      <path d="M21.47,4.35L20.13,3.79V12.82L22.56,6.96C22.97,5.94 22.5,4.77 21.47,4.35M1.97,8.05L6.93,20C7.24,20.77 7.97,21.24 8.74,21.26C9,21.26 9.27,21.21 9.53,21.1L16.9,18.05C17.65,17.74 18.11,17 18.13,16.26C18.14,16 18.09,15.71 18,15.45L13,3.5C12.71,2.73 11.97,2.26 11.19,2.25C10.93,2.25 10.67,2.31 10.42,2.4L3.06,5.45C2.04,5.87 1.55,7.04 1.97,8.05M18.12,4.25A2,2 0 0,0 16.12,2.25H14.67L18.12,10.59"></path>
+    </svg>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="mainPage.html" class="navbar-logo">Chef<span>Sync</span></a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Kitchen Tips & Tricks</h1>
+      <p>Master the culinary arts with professional techniques and time-saving secrets</p>
+    </div>
+  </section>
+
+  <!-- Tips & Tricks Section -->
+  <div class="tips-container">
+    <h2 class="section-heading">Elevate Your Cooking Skills</h2>
+
+    <div class="tips-grid">
+      <div class="tip">
+        <span class="difficulty-badge beginner">Beginner</span>
+        <div class="tip-header">
+          <div class="tip-icon">
+            <i class="fas fa-utensils"></i>
+          </div>
+          <h2 class="tip-title">Mastering Knife Skills</h2>
+        </div>
+        <div class="tip-body">
+          <div class="tip-content" id="tip1-content">
+            <p>Proper knife skills can significantly improve your cooking efficiency and safety. Start by learning the basic cuts: dice, slice, and julienne.</p>
+            <p>Always keep your knives sharp and use the right knife for the task. Practice regularly to enhance your precision and speed.</p>
+            <h4>Essential Knife Techniques:</h4>
+            <ul>
+              <li><strong>Dice:</strong> Cut food into uniform cubes, perfect for even cooking</li>
+              <li><strong>Julienne:</strong> Thin matchstick cuts ideal for stir-fries and garnishes</li>
+              <li><strong>Chiffonade:</strong> Thinly sliced leafy herbs or vegetables</li>
+              <li><strong>Brunoise:</strong> Very small dices used for soups and sauces</li>
+            </ul>
+            <p>When holding a knife, use the "pinch grip" by holding the blade between your thumb and forefinger just above the handle for maximum control and precision.</p>
+          </div>
+          <button class="show-more" onclick="toggleContent('tip1-content', this)">Show More <i class="fas fa-chevron-down"></i></button>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="difficulty-badge intermediate">Intermediate</span>
+        <div class="tip-header">
+          <div class="tip-icon">
+            <i class="fas fa-fire"></i>
+          </div>
+          <h2 class="tip-title">Perfecting the Art of Searing</h2>
+        </div>
+        <div class="tip-body">
+          <div class="tip-content" id="tip2-content">
+            <p>Searing meat creates a flavorful crust that enhances the taste of your dish. Ensure your pan is hot before adding the meat.</p>
+            <p>Pat the meat dry and season it well. Avoid overcrowding the pan to maintain high heat and achieve a perfect sear.</p>
+            <h4>Searing Steps:</h4>
+            <ol>
+              <li>Take meat out of refrigerator 30 minutes before cooking</li>
+              <li>Pat completely dry with paper towels</li>
+              <li>Season generously with salt and pepper</li>
+              <li>Heat pan until smoking hot</li>
+              <li>Add high-heat oil like avocado or grapeseed</li>
+              <li>Place meat in pan and don't move it for 2-3 minutes</li>
+              <li>Flip once and finish cooking to desired temperature</li>
+            </ol>
+            <p>For thick cuts, finish cooking in a preheated oven at 375°F (190°C) after searing to ensure even cooking while maintaining the perfect crust.</p>
+          </div>
+          <button class="show-more" onclick="toggleContent('tip2-content', this)">Show More <i class="fas fa-chevron-down"></i></button>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="difficulty-badge intermediate">Intermediate</span>
+        <div class="tip-header">
+          <div class="tip-icon">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <h2 class="tip-title">Balancing Flavors</h2>
+        </div>
+        <div class="tip-body">
+          <div class="tip-content" id="tip3-content">
+            <p>A well-balanced dish has the right mix of sweet, salty, sour, and umami flavors. Taste your dish as you cook and adjust the seasoning accordingly.</p>
+            <p>Use fresh herbs and spices to add depth and complexity to your dishes. Don't be afraid to experiment with different flavor combinations.</p>
+            <h4>Flavor Balancing Guide:</h4>
+            <ul>
+              <li><strong>Too salty?</strong> Add acid (lemon juice, vinegar) or a touch of sweetness</li>
+              <li><strong>Too bland?</strong> Add salt gradually or enhance with umami (soy sauce, mushrooms, parmesan)</li>
+              <li><strong>Too acidic?</strong> Balance with a touch of honey, sugar, or fat (butter, cream)</li>
+              <li><strong>Too spicy?</strong> Add fat (yogurt, cream) or sweetness</li>
+              <li><strong>Too sweet?</strong> Add acid or bitter elements (dark greens, coffee, dark chocolate)</li>
+            </ul>
+            <p>Remember that layering flavors throughout the cooking process yields more complex and satisfying results than seasoning only at the end.</p>
+          </div>
+          <button class="show-more" onclick="toggleContent('tip3-content', this)">Show More <i class="fas fa-chevron-down"></i></button>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="difficulty-badge advanced">Advanced</span>
+        <div class="tip-header">
+          <div class="tip-icon">
+            <i class="fas fa-temperature-high"></i>
+          </div>
+          <h2 class="tip-title">Mastering Heat Control</h2>
+        </div>
+        <div class="tip-body">
+          <div class="tip-content" id="tip4-content">
+            <p>Understanding heat is critical to cooking success. Different techniques require different heat levels, and knowing when to go high and when to go low can make all the difference.</p>
+            <h4>Heat Level Guide:</h4>
+            <ul>
+              <li><strong>High heat (450°F+):</strong> Searing, stir-frying, boiling</li>
+              <li><strong>Medium-high heat (375-450°F):</strong> Sautéing, pan-frying</li> 
+              <li><strong>Medium heat (325-375°F):</strong> Most cooking processes</li>
+              <li><strong>Medium-low heat (275-325°F):</strong> Gentle simmering, delicate sauces</li>
+              <li><strong>Low heat (below 275°F):</strong> Slow cooking, poaching, keeping food warm</li>
+            </ul>
+            <p>Pre-heat your pans properly. A properly heated pan prevents sticking and promotes even cooking. Test by sprinkling a few drops of water - if they skitter across the surface, your pan is ready.</p>
+            <p>Remember that different cookware materials (cast iron, stainless steel, non-stick) conduct and retain heat differently. Adjust your cooking approach accordingly.</p>
+          </div>
+          <button class="show-more" onclick="toggleContent('tip4-content', this)">Show More <i class="fas fa-chevron-down"></i></button>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="difficulty-badge beginner">Beginner</span>
+        <div class="tip-header">
+          <div class="tip-icon">
+            <i class="fas fa-mortar-pestle"></i>
+          </div>
+          <h2 class="tip-title">Herb & Spice Wisdom</h2>
+        </div>
+        <div class="tip-body">
+          <div class="tip-content" id="tip5-content">
+            <p>Herbs and spices can transform ordinary dishes into extraordinary culinary experiences. Learning when and how to use them is essential for any home chef.</p>
+            <h4>Timing Tips:</h4>
+            <ul>
+              <li><strong>Add dried herbs</strong> early in the cooking process to extract their flavors</li>
+              <li><strong>Add fresh herbs</strong> toward the end of cooking to preserve their bright flavors and colors</li>
+              <li><strong>Toast whole spices</strong> before grinding to release their aromatic oils</li>
+              <li><strong>Blooming ground spices</strong> in hot oil enhances their flavor before adding other ingredients</li>
+            </ul>
+            <p>Store dried herbs and spices in airtight containers away from heat and light. Most dried herbs and ground spices should be replaced every 6-12 months as they lose potency over time.</p>
+            <p>Fresh herbs can be preserved by freezing them in ice cube trays with olive oil or water, or by drying them yourself for longer storage.</p>
+          </div>
+          <button class="show-more" onclick="toggleContent('tip5-content', this)">Show More <i class="fas fa-chevron-down"></i></button>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="difficulty-badge intermediate">Intermediate</span>
+        <div class="tip-header">
+          <div class="tip-icon">
+            <i class="fas fa-cookie"></i>
+          </div>
+          <h2 class="tip-title">Baking Precision</h2>
+        </div>
+        <div class="tip-body">
+          <div class="tip-content" id="tip6-content">
+            <p>Baking is both a science and an art. Precision in measurements and technique is crucial for consistent results.</p>
+            <h4>Baking Success Secrets:</h4>
+            <ul>
+              <li>Use a kitchen scale for accurate measurements (especially for flour)</li>
+              <li>Bring cold ingredients to room temperature before mixing</li>
+              <li>Understand the difference between creaming, folding, and cutting in techniques</li>
+              <li>Don't overmix batters - this develops gluten and can make baked goods tough</li>
+              <li>Invest in an oven thermometer - most ovens run hotter or cooler than their settings</li>
+            </ul>
+            <p>For perfect cookies, chill the dough before baking. This prevents spreading and enhances flavor development.</p>
+            <p>When making pastry, keep everything cold and work quickly. The flaky texture comes from cold butter creating steam pockets during baking.</p>
+          </div>
+          <button class="show-more" onclick="toggleContent('tip6-content', this)">Show More <i class="fas fa-chevron-down"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-about">
+        <h3>About ChefSync</h3>
+        <p>ChefSync is dedicated to making your cooking journey delightful and stress-free with smart recipe tools and curated content.</p>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="mainPage.html#meals">Meal Types</a></li>
+          <li><a href="BREAKFAST.html">Breakfast</a></li>
+          <li><a href="mainPage.html#features">Features</a></li>
+          <li><a href="mainPage.html#blogs">Blogs</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Support</h3>
+        <ul class="footer-links">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-copyright">
+      <p>© 2025 ChefSync | Designed with ❤️ for cooking enthusiasts</p>
+    </div>
+  </footer>
+
+  <script>
+    // Show/Hide content
+    function toggleContent(id, button) {
+      const content = document.getElementById(id);
+      
+      if (content.classList.contains('show')) {
+        content.classList.remove('show');
+        button.innerHTML = 'Show More <i class="fas fa-chevron-down"></i>';
+        button.classList.remove('expanded');
+      } else {
+        content.classList.add('show');
+        button.innerHTML = 'Show Less <i class="fas fa-chevron-down"></i>';
+        button.classList.add('expanded');
+      }
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Add parallax effect to hero section
+    window.addEventListener('scroll', function() {
+      const scrollPosition = window.pageYOffset;
+      const hero = document.querySelector('.hero');
+      hero.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+    });
+  </script>
+</body>
+
+</html>

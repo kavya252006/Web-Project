@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChefSync - Your Smart Recipe Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    
+    :root {
+      --primary: #e67e22;
+      --primary-dark: #d35400;
+      --secondary: #fff3e0;
+      --text-dark: #333;
+      --text-light: #666;
+      --white: #fff;
+      --bg-light: #fffaf4;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      --transition: all 0.3s ease;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+    }
+    
+    a {
+      text-decoration: none;
+      color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    a:hover {
+      color: var(--primary-dark);
+    }
+
+    /* Header & Navigation */
+    .header {
+      position: relative;
+      height: 80vh;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--white);
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), 
+                  url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092') no-repeat center center/cover;
+      overflow: hidden;
+    }
+    
+    .header-content {
+      max-width: 800px;
+      padding: 0 1.5rem;
+      z-index: 1;
+    }
+    
+    .header-title {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+    
+    .header-subtitle {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+    
+    .header-cta {
+      display: inline-block;
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: var(--transition);
+      margin-top: 1rem;
+    }
+    
+    .header-cta:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      color: var(--white);
+    }
+    
+    .navbar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .navbar-logo span {
+      color: var(--text-dark);
+    }
+    
+    .navbar-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    .navbar-link {
+      font-weight: 500;
+      color: var(--text-dark);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+    
+    .navbar-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .navbar-link:hover::after {
+      width: 100%;
+    }
+    
+    .navbar-link:hover {
+      color: var(--primary);
+    }
+    
+    .navbar-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text-dark);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Main Content Sections */
+    section {
+      padding: 5rem 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      font-size: 2.5rem;
+      color: var(--text-dark);
+    }
+    
+    .section-title span {
+      color: var(--primary);
+    }
+    
+    .section-subtitle {
+      display: block;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--text-light);
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Cards Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    
+    .card {
+      background-color: var(--white);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    
+    .card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .card-content {
+      padding: 1.5rem;
+    }
+    
+    .card-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+    }
+    
+    .card-text {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Category Cards */
+    .category-card {
+      position: relative;
+      height: 250px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      display: block;
+    }
+    
+    .category-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .category-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      transition: var(--transition);
+    }
+    
+    .category-card:hover .category-img {
+      transform: scale(1.1);
+    }
+    
+    .category-card:hover .category-overlay {
+      background: linear-gradient(to top, rgba(230, 126, 34, 0.8), rgba(0,0,0,0.4));
+    }
+    
+    .category-title {
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #2d3436;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 4rem 0 2rem;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    
+    .footer-col h3 {
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      position: relative;
+    }
+    
+    .footer-col h3::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary);
+    }
+    
+    .footer-about p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary);
+      padding-left: 5px;
+    }
+    
+    .footer-copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+    }
+    
+    .footer-copyright a {
+      color: var(--primary);
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), 
+                url('https://images.unsplash.com/photo-1577219491135-ce391730fb2c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1600') no-repeat center center/cover;
+      color: var(--white);
+      text-align: center;
+      padding: 4rem 0;
+    }
+    
+    .newsletter-title {
+      margin-bottom: 1rem;
+      font-size: 2.2rem;
+    }
+    
+    .newsletter-text {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-weight: 300;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .newsletter-input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 50px 0 0 50px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+    }
+    
+    .newsletter-button {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 0 50px 50px 0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .newsletter-button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .header-title {
+        font-size: 3rem;
+      }
+      
+      .section-title {
+        font-size: 2.2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem;
+      }
+      
+      .navbar-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 400px;
+        height: 100vh;
+        background-color: var(--white);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: var(--transition);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        z-index: 2000;
+      }
+      
+      .navbar-menu.active {
+        right: 0;
+      }
+      
+      .navbar-link {
+        color: var(--text-dark);
+        font-size: 1.2rem;
+      }
+      
+      .navbar-toggle {
+        display: block;
+        z-index: 2001;
+      }
+      
+      .header-title {
+        font-size: 2.5rem;
+      }
+      
+      .header-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      section {
+        padding: 4rem 0;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .newsletter-input {
+        border-radius: 50px;
+      }
+      
+      .newsletter-button {
+        border-radius: 50px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .header-title {
+        font-size: 2rem;
+      }
+      
+      .header-subtitle {
+        font-size: 1rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="navbar-logo">Chef<span>Sync</span></a>
+    
+    <button class="navbar-toggle" id="navToggle">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  
+    <ul class="navbar-menu" id="navMenu">
+      <li><a href="BREAKFAST.html" class="navbar-link">Breakfast</a></li>
+      <li><a href="LUNCH.html" class="navbar-link">Lunch</a></li>
+      <li><a href="DINNER.html" class="navbar-link">Dinner</a></li>
+      <li><a href="DESSERTS.html" class="navbar-link">Desserts</a></li>
+      <li><a href="SNACKS.html" class="navbar-link">Snacks</a></li>
+     
+      <li><a href="FAVOURITES.html" class="navbar-link">Favourites</a></li>
+      <li><a href="FEEDBACK.html" class="navbar-link">Feedback</a></li>
+      <li><a href="PLANNER.html" class="navbar-link">Planner</a></li>
+    </ul>
+  </nav>
+  
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <h1 class="header-title">ChefSync</h1>
+      <p class="header-subtitle">Where Passion Meets Recipes. Discover, Learn, Cook, and Enjoy!</p>
+      <a href="#features" class="header-cta">Explore Features</a>
+    </div>
+  </header>
+
+  <!-- New Clickable Meal Types Section -->
+<section id="meals">
+  <div class="container">
+    <h2 class="section-title">Meal <span>Types</span></h2>
+    <p class="section-subtitle">Discover recipes for every time of day, from energizing breakfasts to comforting dinners.</p>
+    
+    <div class="card-grid">
+      <a href="BREAKFAST.html" class="category-card">
+        <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666" alt="Breakfast" class="category-img">
+        <div class="category-overlay">
+          <h3 class="category-title">Breakfast</h3>
+        </div>
+      </a>
+      
+      <a href="LUNCH.html" class="category-card">
+        <img src="https://images.unsplash.com/photo-1601356616077-695728ae17cb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lunch" class="category-img">
+        <div class="category-overlay">
+          <h3 class="category-title">Lunch</h3>
+        </div>
+      </a>
+      
+      <a href="DINNER.html" class="category-card">
+        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2" alt="Dinner" class="category-img">
+        <div class="category-overlay">
+          <h3 class="category-title">Dinner</h3>
+        </div>
+      </a>
+      
+      <a href="SNACKS.html" class="category-card">
+        <img src="https://plus.unsplash.com/premium_photo-1687014520257-3b09f6668092?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Snacks" class="category-img">
+        <div class="category-overlay">
+          <h3 class="category-title">Snacks</h3>
+        </div>
+      </a>
+      
+      <a href="DESSERTS.html" class="category-card">
+        <img src="https://images.unsplash.com/photo-1588444998671-17d073261336?q=80&w=2127&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Desserts" class="category-img">
+        <div class="category-overlay">
+          <h3 class="category-title">Desserts</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <div class="container">
+      <h2 class="section-title">Smart <span>Recipe</span> Tools</h2>
+      <p class="section-subtitle">ChefSync transforms your cooking experience with smart features designed to save time and inspire kitchen creativity.</p>
+      
+      <div class="card-grid">
+        <a href="PLANNER.html" style="text-decoration: none; color: inherit;">
+          <div class="card" style="cursor: pointer;">
+            <img src="https://plus.unsplash.com/premium_photo-1701104991468-0cb93a13e07a?q=80&w=1938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Meal Planner" class="card-img">
+            <div class="card-content">
+              <h3 class="card-title">Meal Planner</h3>
+              <p class="card-text">Create balanced weekly meal plans with one click. Save time and reduce food waste.</p>
+            </div>
+          </div>
+        </a>
+        
+        <a href="TIPSANDTRICKS.html" style="text-decoration: none; color: inherit;">
+          <div class="card" style="cursor: pointer;">
+            <img src="https://images.unsplash.com/photo-1696576888445-0c2a2a05713c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tips & Tricks" class="card-img">
+            <div class="card-content">
+              <h3 class="card-title">Tips & Tricks</h3>
+              <p class="card-text">Boost your culinary IQ with handy cooking secrets and techniques.</p>
+            </div>
+          </div>
+        </a>
+        
+        
+        <a href="FEEDBACK.html" style="text-decoration: none; color: inherit;">
+          <div class="card" style="cursor: pointer;">
+            <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e" alt="Feedback" class="card-img">
+            <div class="card-content">
+              <h3 class="card-title">Feedback</h3>
+              <p class="card-text">Help us improve by sharing your cooking journey experiences.</p>
+            </div>
+          </div>
+        </a>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blogs" class="bg-light">
+    <div class="container">
+      <h2 class="section-title">From the <span>Chef's</span> Diary</h2>
+      <p class="section-subtitle">Explore culinary stories, cooking journeys, and insights from professional chefs.</p>
+      
+      <div class="card-grid">
+        <a href="LIFEINTHEKITCHEN.html" style="text-decoration: none; color: inherit;">
+          <div class="card" style="cursor: pointer;">
+            <img src="https://plus.unsplash.com/premium_photo-1663075829242-c419abb7da3b?q=80&w=2046&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Life in the Kitchen" class="card-img">
+            <div class="card-content">
+              <h3 class="card-title">Life in the Kitchen</h3>
+              <p class="card-text">Explore behind-the-scenes, chef stories & experiences.</p>
+            </div>
+          </div>
+        </a>
+        
+        <a href="KITCHENESSENTIALS.html" style="text-decoration: none; color: inherit;">
+          <div class="card" style="cursor: pointer;">
+            <img src="https://images.unsplash.com/photo-1556911261-6bd341186b2f" alt="Kitchen Essentials" class="card-img">
+            <div class="card-content">
+              <h3 class="card-title">Kitchen Essentials</h3>
+              <p class="card-text">The tools and equipment every home chef should have.</p>
+            </div>
+          </div>
+        </a>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter">
+    <div class="container">
+      <h2 class="newsletter-title">Subscribe to Our Newsletter</h2>
+      <p class="newsletter-text">Get weekly recipe inspirations, cooking tips, and exclusive content delivered straight to your inbox.</p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Your email address" class="newsletter-input" required>
+        <button type="submit" class="newsletter-button">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <h3>About ChefSync</h3>
+          <p>ChefSync is dedicated to making your cooking journey delightful and stress-free with smart recipe tools and curated content.</p>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#meals">Meal Types</a></li>
+            <li><a href="BREAKFAST.html">Breakfast</a></li>
+            <li><a href="#region">By Region</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#blogs">Blogs</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Support</h3>
+          <ul class="footer-links">
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-copyright">
+        <p>© 2025 ChefSync | Designed by Kavya 👨‍🍳</p>
+        <p><a href="index.html">Log In</a> to access personalized features</p>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Mobile menu toggle
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+    
+    // Close menu when clicking a link
+    const navLinks = document.querySelectorAll('.navbar-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
